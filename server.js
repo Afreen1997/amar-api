@@ -27,6 +27,11 @@ app.get('/', (req, res)=>{// http:localhost:3000.
     res.send(`<h1>Amar REST APIs Home page</h1>`)
 })
 
+
+const admin_route = require('./routes/admin_r')// user routes
+app.use('/admin', admin_route)
+
+
 const user_route = require('./routes/user_r')// user routes
 app.use('/user', user_route)// user routes
 /* app.get('/user', (req, res)=>{// http:localhost:3000/user
