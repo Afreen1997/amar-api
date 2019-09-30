@@ -14,5 +14,5 @@ user_router.get("/:id",    user_controller.select1_by_id)// Get a selected user.
 user_router.post("/",      user_controller.register)// Save an user Record / Save Register Form data.
 user_router.post("/check", user_controller.authenticate)// Check valid user or not.
 user_router.delete("/:id", user_controller.delete1)// Delete an user Record
-
+user_router.put("/:id",    user_controller.update1)// Delete an user Record
 module.exports = user_router

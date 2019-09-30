@@ -74,5 +74,18 @@ delete1: async(req,res)=>{// Delete an user Record
     } catch(err) {
         res.status(500).send(err)
     }
+},
+update1: async(req, res)=>{// Update an user Record
+    try {
+        console.log("req.params.id : " + req.params.id)
+        console.log("req.body")
+        console.log(req.body)
+        let filter = { _id: req.params.id };
+        let update = { user_name: req.body.user_name, email_id: req.body.email_id, pass_word: req.body.pass_word };
+        let result = await user_model.findOneAndUpdate(filter, update, {new: true});
+        res.send(result)
+    } catch(err) {
+        res.status(500).send(err)
+    }
 }
 }
