@@ -1,5 +1,5 @@
 const jwt      = require('jsonwebtoken')// JSON Web Token to Secure REST APIs
-let course_model = require('../models/course_m')
+let payment_model = require('../models/payment_m')
 const config   = require('./../config/config')// config/config.js
 
 function create_token(email_id){
@@ -12,18 +12,18 @@ function create_token(email_id){
 module.exports = {
 select_all: async (req, res)=>{// Get all users
     try {
-        let courses = await course_model.find().exec()
-        res.send(courses)
+        let payments = await payment_model.find().exec()
+        res.send(payments)
     } catch(err) {
         res.status(500).send(err)
     }
 },
 records_in_table_form: async (req, res)=>{// Get all users & List in HTML Table
     try {
-        let courses= await course_model.find().exec()
+        let payments= await payment_model.find().exec()
         let html = '<h1>User List</h1><table border="1" cellspacing="0" cellpadding="5"><tr><th>SrNo</th><th>_id</th><th>User Name</th><th>Email Id</th><th>Password</th></tr>'
         let serial_no = 1
-        courses.forEach((record)=>{
+        payments.forEach((record)=>{
             html += `<tr><td>${serial_no}</td><td>${record._id}</td><td>${record.user_name}</td><td>${record.email_id}</td><td>${record.pass_word}</td></tr>`
             serial_no++
         })
@@ -35,8 +35,8 @@ records_in_table_form: async (req, res)=>{// Get all users & List in HTML Table
 },
 select1_by_id: async (req, res)=>{// Get a selected user
     try {
-        let course = await course_model.findById(req.params.id).exec()
-        res.send(course)
+        let payment = await payment_model.findById(req.params.id).exec()
+        res.send(payment)
     } catch(err) {
         res.status(500).send(err)
     }
@@ -44,8 +44,8 @@ select1_by_id: async (req, res)=>{// Get a selected user
 register: async(req, res)=>{// Save an user Record
     try {
         console.log(req.body)
-        let course = new course_model(req.body)
-        let result = await course.save()
+        let payment = new payment_model(req.body)
+        let result = await payment.save()
         res.send(result)
     } catch(err) {
         res.status(500).send(err)
@@ -54,10 +54,10 @@ register: async(req, res)=>{// Save an user Record
 authenticate: async(req, res)=>{// Check valid user or not
     try {
         console.log(req.body)
-        let courses= await course_model.find({ email_id: req.body.email_id, pass_word: req.body.pass_word }).exec()
+        let payments= await payment_model.find({ email_id: req.body.email_id, pass_word: req.body.pass_word }).exec()
         //console.log(users.length)
         //console.log(users)
-        if(courses.length == 1) {// Found User record for given email_id & pass_word
+        if(payments.length == 1) {// Found User record for given email_id & pass_word
             res.send(create_token(req.body.email_id))// Send token to Frontend if a Valid User is Logging in
             //res.send("Valid User")
         } else {
@@ -69,7 +69,7 @@ authenticate: async(req, res)=>{// Check valid user or not
 },
 delete1: async(req,res)=>{// Delete an user Record
     try {
-        let result = await course_model.deleteOne({_id: req.params.id}).exec()
+        let result = await payment_model.deleteOne({_id: req.params.id}).exec()
         res.send(result)
     } catch(err) {
         res.status(500).send(err)
@@ -81,8 +81,8 @@ update1: async(req, res)=>{// Update an user Record
         console.log("req.body")
         console.log(req.body)
         let filter = { _id: req.params.id };
-        let update = { Technology:req.body.Technology };
-        let result = await course_model.findOneAndUpdate(filter, update, {new: true});
+        let update = {training_fee:req.body.training_fee,commission_percentage:req.body. commission_percentage,received_pending:req.body.received_pending };
+        let result = await payment_model.findOneAndUpdate(filter, update, {new: true});
         res.send(result)
     } catch(err) {
         res.status(500).send(err)

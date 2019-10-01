@@ -28,6 +28,13 @@ app.get('/', (req, res)=>{// http:localhost:3000.
 })
 
 
+const commission_route = require('./routes/commission_r')// user routes
+app.use('/commission', commission_route)
+
+const payment_route = require('./routes/payment_r')// user routes
+app.use('/payment', payment_route)
+
+
 const admin_route = require('./routes/admin_r')// user routes
 app.use('/admin', admin_route)
 
