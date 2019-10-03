@@ -27,6 +27,17 @@ app.get('/', (req, res)=>{// http:localhost:3000.
     res.send(`<h1>Amar REST APIs Home page</h1>`)
 })
 
+const trainer_route = require('./routes/trainer_r')// user routes
+app.use('/trainer', trainer_route)
+
+
+const currenttraining_route = require('./routes/currenttraining_r')// user routes
+app.use('/currenttraining', currenttraining_route)
+
+
+const completedtraining_route = require('./routes/completedtraining_r')// user routes
+app.use('/completedtraining', completedtraining_route)
+
 
 const commission_route = require('./routes/commission_r')// user routes
 app.use('/commission', commission_route)
